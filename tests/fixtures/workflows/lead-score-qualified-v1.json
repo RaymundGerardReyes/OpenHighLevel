@@ -1,0 +1,91 @@
+{
+  "caseId": "lead-score-qualified-v1",
+  "description": "Lead score qualification flow with conditional branch and wait",
+  "clock": "2026-09-28T09:00:00+08:00",
+  "contact": {
+    "id": "c1",
+    "email": "lead@example.com",
+    "score": 80,
+    "tags": []
+  },
+  "event": {
+    "type": "ContactScoreUpdated",
+    "score": 80
+  },
+  "workflow": {
+    "nodes": [
+      {
+        "nodeKey": "trigger",
+        "type": "Trigger",
+        "name": "Score Updated"
+      },
+      {
+        "nodeKey": "score-check",
+        "type": "IfElse",
+        "name": "Score >= 50"
+      },
+      {
+        "nodeKey": "add-qualified",
+        "type": "SetContactField",
+        "name": "Mark Qualified"
+      },
+      {
+        "nodeKey": "wait-followup",
+        "type": "WaitDuration",
+        "name": "Wait 24h"
+      },
+      {
+        "nodeKey": "send-intro",
+        "type": "SendMessage",
+        "name": "Send Intro"
+      },
+      {
+        "nodeKey": "end",
+        "type": "End",
+        "name": "Done"
+      }
+    ],
+    "edges": [
+      {
+        "sourceNodeKey": "trigger",
+        "targetNodeKey": "score-check",
+        "sourcePort": "default"
+      },
+      {
+        "sourceNodeKey": "score-check",
+        "targetNodeKey": "add-qualified",
+        "sourcePort": "true"
+      },
+      {
+        "sourceNodeKey": "score-check",
+        "targetNodeKey": "end",
+        "sourcePort": "false"
+      },
+      {
+        "sourceNodeKey": "add-qualified",
+        "targetNodeKey": "wait-followup",
+        "sourcePort": "default"
+      },
+      {
+        "sourceNodeKey": "wait-followup",
+        "targetNodeKey": "send-intro",
+        "sourcePort": "default"
+      },
+      {
+        "sourceNodeKey": "send-intro",
+        "targetNodeKey": "end",
+        "sourcePort": "default"
+      }
+    ]
+  },
+  "expected": {
+    "path": [
+      "trigger",
+      "score-check",
+      "add-qualified",
+      "wait-followup"
+    ],
+    "statusAfterInitialStep": "Waiting",
+    "scheduledWaitDurationMinutes": 1440
+  }
+}

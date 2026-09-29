@@ -1,0 +1,18 @@
+{
+  "name": "openflow-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "OpenFlow - Requirements-Driven GHL Workflow Simulator",
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "lint": "pnpm --filter web lint",
+    "build:backend": "dotnet build OpenFlow.sln",
+    "test:backend": "dotnet test OpenFlow.sln",
+    "scaffold": "bash scripts/scaffold-openflow.sh"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.0"
+  }
+}
