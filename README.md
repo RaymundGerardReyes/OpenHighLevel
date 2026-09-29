@@ -1,4 +1,6 @@
-# OpenFlow: Requirements-Driven GHL Workflow Simulator
+# OpenFlow: Requirements-Driven GHL Workflow Simulator `v0.1.0`
+
+> **Current Version:** `v0.1.0` (Modular Monolith Core, Trace-First Engine & Simulation Laboratory)
 
 OpenFlow is an independently built, behavior-compatible workflow simulator and testing laboratory inspired by CRM automation systems.
 

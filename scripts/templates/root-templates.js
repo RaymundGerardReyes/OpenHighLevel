@@ -20,6 +20,10 @@ export const rootTemplates = {
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <Version>0.1.0</Version>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+    <InformationalVersion>0.1.0</InformationalVersion>
   </PropertyGroup>
 </Project>`,
 
@@ -100,7 +104,9 @@ Thumbs.db
 !.vscode/settings.json
 `,
 
-  'README.md': `# OpenFlow: Requirements-Driven GHL Workflow Simulator
+  'README.md': `# OpenFlow: Requirements-Driven GHL Workflow Simulator \`v0.1.0\`
+
+> **Current Version:** \`v0.1.0\` (Modular Monolith Core, Trace-First Engine & Simulation Laboratory)
 
 OpenFlow is an independently built, behavior-compatible workflow simulator and testing laboratory inspired by CRM automation systems.
 

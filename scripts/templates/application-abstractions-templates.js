@@ -56,6 +56,20 @@ public interface IEffectDispatcher
 }
 `,
 
+  'src/OpenFlow.Application/Abstractions/IFixtureRegistry.cs': `using OpenFlow.Contracts.SimulationRuns;
+using OpenFlow.Domain.Executions;
+
+namespace OpenFlow.Application.Abstractions;
+
+public interface IFixtureRegistry
+{
+    void RegisterFixture(SimulationFixtureDto fixture);
+    void RegisterFixtures(IEnumerable<SimulationFixtureDto> fixtures);
+    string? MatchResponse(EffectIntent intent);
+    void Clear();
+}
+`,
+
   'src/OpenFlow.Application/Abstractions/IApplicationDbContext.cs': `using OpenFlow.Domain.Workflows;
 using OpenFlow.Domain.Executions;
 using OpenFlow.Domain.Contacts;

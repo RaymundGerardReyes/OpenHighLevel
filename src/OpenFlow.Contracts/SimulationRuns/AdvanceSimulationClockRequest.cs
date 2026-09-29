@@ -6,4 +6,3 @@ public class AdvanceSimulationClockRequest
     public bool AdvanceToNextTask { get; set; } = true;
     public string? ResumptionContextJson { get; set; }
 }
-

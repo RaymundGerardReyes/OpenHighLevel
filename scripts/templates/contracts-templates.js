@@ -189,6 +189,18 @@ public class ExecutionTraceDto
 `,
 
   // SimulationRuns
+  'src/OpenFlow.Contracts/SimulationRuns/SimulationFixtureDto.cs': `namespace OpenFlow.Contracts.SimulationRuns;
+
+public class SimulationFixtureDto
+{
+    public string? Key { get; set; }
+    public string Type { get; set; } = "Webhook";
+    public int StatusCode { get; set; } = 200;
+    public string ResponseBodyJson { get; set; } = "{\\"status\\":\\"ok\\"}";
+    public int SimulatedLatencyMs { get; set; } = 0;
+}
+`,
+
   'src/OpenFlow.Contracts/SimulationRuns/StartSimulationRequest.cs': `namespace OpenFlow.Contracts.SimulationRuns;
 
 public class StartSimulationRequest
@@ -196,7 +208,20 @@ public class StartSimulationRequest
     public Guid WorkflowVersionId { get; set; }
     public string Mode { get; set; } = "FastSimulation";
     public string InitialStateJson { get; set; } = "{}";
+    public string? SubjectId { get; set; }
     public string ContactEmail { get; set; } = string.Empty;
+    public int MaxVirtualDays { get; set; } = 30;
+    public List<SimulationFixtureDto> Fixtures { get; set; } = new();
+}
+`,
+
+  'src/OpenFlow.Contracts/SimulationRuns/AdvanceSimulationClockRequest.cs': `namespace OpenFlow.Contracts.SimulationRuns;
+
+public class AdvanceSimulationClockRequest
+{
+    public int? Minutes { get; set; }
+    public bool AdvanceToNextTask { get; set; } = true;
+    public string? ResumptionContextJson { get; set; }
 }
 `,
 
@@ -211,6 +236,45 @@ public class SimulationRunDto
     public DateTime ClockStartUtc { get; set; }
     public DateTime CurrentClockUtc { get; set; }
     public string FinalStateJson { get; set; } = "{}";
+}
+`,
+
+  'src/OpenFlow.Contracts/SimulationRuns/SimulationResultDto.cs': `using OpenFlow.Contracts.Executions;
+
+namespace OpenFlow.Contracts.SimulationRuns;
+
+public class SimulationResultDto
+{
+    public Guid SimulationRunId { get; set; }
+    public Guid ExecutionId { get; set; }
+    public Guid WorkflowVersionId { get; set; }
+    public string Status { get; set; } = string.Empty;
+    public string Mode { get; set; } = string.Empty;
+    public DateTime ClockStartUtc { get; set; }
+    public DateTime CurrentClockUtc { get; set; }
+    public TimeSpan TotalSimulatedDuration { get; set; }
+    public string FinalStateJson { get; set; } = "{}";
+    public List<ExecutionStepDto> StepTraces { get; set; } = new();
+    public List<SimulationResumptionDto> ScheduledResumptions { get; set; } = new();
+    public List<SimulationEffectDto> EmittedEffects { get; set; } = new();
+}
+
+public class SimulationResumptionDto
+{
+    public Guid TaskId { get; set; }
+    public string NodeKey { get; set; } = string.Empty;
+    public DateTime DueAtUtc { get; set; }
+    public string Status { get; set; } = string.Empty;
+}
+
+public class SimulationEffectDto
+{
+    public Guid IntentId { get; set; }
+    public string Type { get; set; } = string.Empty;
+    public string IdempotencyKey { get; set; } = string.Empty;
+    public string RequestJson { get; set; } = "{}";
+    public string? ResponseJson { get; set; }
+    public string Status { get; set; } = string.Empty;
 }
 `,
 
