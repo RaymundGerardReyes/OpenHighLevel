@@ -44,3 +44,10 @@
 ## Controller & Handler Clock Propagation
 - API controllers and background worker services must inject `ISimulationClock` and pass it to use-case handlers. Never allow command handlers to fall back to `DateTime.UtcNow`.
 
+## Release Versioning & Tagging Invariant
+- Maintain unified semantic versioning across all project descriptors:
+  - `Directory.Build.props`: `<Version>0.1.0</Version>`, `<AssemblyVersion>0.1.0.0</AssemblyVersion>`, `<FileVersion>0.1.0.0</FileVersion>`, `<InformationalVersion>0.1.0</InformationalVersion>`.
+  - `package.json` (root and `apps/web`): `"version": "0.1.0"`.
+  - `README.md`: Document current milestone version `v0.1.0`.
+- All milestone commits and scaffolding scripts must reflect the active semantic version, and release commits must be tagged with annotated Git tags (e.g., `git tag -a v0.1.0 -m "Release v0.1.0"`).
+
